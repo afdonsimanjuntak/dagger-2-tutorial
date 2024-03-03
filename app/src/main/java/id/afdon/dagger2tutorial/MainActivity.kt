@@ -10,11 +10,40 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import id.afdon.dagger2tutorial.dagger.component.DaggerActivityComponent
+import id.afdon.dagger2tutorial.dagger.component.DaggerFooBarComponent
+import id.afdon.dagger2tutorial.dagger.component.DaggerThirdPartyComponent
 import id.afdon.dagger2tutorial.ui.theme.Dagger2TutorialTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val fooBarComponent = DaggerFooBarComponent.create()
+        val foo = fooBarComponent.getFoo()
+        val bar = fooBarComponent.getBar()
+        foo.print()
+        bar.print()
+
+        val thirdPartyComponent = DaggerThirdPartyComponent.create()
+        val thirdPartyClass = thirdPartyComponent.getThirdPartyClass()
+        val thirdPartyInterface = thirdPartyComponent.getThirdPartyInterface()
+        thirdPartyClass.print()
+        thirdPartyInterface.print()
+
+        val applicationComponent = (application as MyApplication).applicationComponent()
+        val applicationScopedObject1 = applicationComponent.getApplicationScopedObject()
+        val applicationScopedObject2 = applicationComponent.getApplicationScopedObject()
+        applicationScopedObject1.print()
+        applicationScopedObject2.print()
+
+        val activityComponent = DaggerActivityComponent.create()
+        val activityScopedObject1 = activityComponent.getActivityScopedObject()
+        val activityScopedObject2 = activityComponent.getActivityScopedObject()
+        activityScopedObject1.print()
+        activityScopedObject2.print()
+
         setContent {
             Dagger2TutorialTheme {
                 // A surface container using the 'background' color from the theme
