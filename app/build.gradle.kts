@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -61,8 +62,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     // Dagger
-    implementation("com.google.dagger:dagger:2.44.2")
-    annotationProcessor("com.google.dagger:dagger-compiler:2.44.2")
+    implementation("com.google.dagger:dagger:2.51")
+    kapt("com.google.dagger:dagger-compiler:2.51")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
