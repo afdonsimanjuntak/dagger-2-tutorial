@@ -42,3 +42,28 @@ public final class Bar_Factory implements Provider<Bar> {
     }
 }
 ```
+
+To get dependencies, create component interface. Dagger will generate the implementation of the component.
+```Java
+@Component
+interface MyComponent {
+
+    Bar bar();
+}
+
+@Generated
+final class DaggerMyComponent implements MyComponent {
+
+    private Provider<Foo> fooProvider;
+    private Provider<Bar> barProvider;
+
+    DaggerMyComponent() {
+        this.fooProvider = new Foo_Factory();
+        this.barProvider = new Bar_Factory();
+    }
+
+    @Override public Bar bar() {
+        return barProvider.get();
+    }
+}
+```
