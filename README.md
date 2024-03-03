@@ -8,13 +8,14 @@ public interface Provider<T> {
 ```
 
 Add @Inject annotation to constructor
-```Java
-final class Foo {
-    @Inject Foo() {};
-}
+```Kotlin
+class Foo @Inject constructor()
 
-final class Bar {
-    @Inject Bar(Foo foo) {};
+class Bar @Inject constructor(foo: Foo) {
+
+    fun print() {
+        Log.d("Bar", "print: Bar")
+    }
 }
 ```
 
@@ -44,13 +45,15 @@ public final class Bar_Factory implements Provider<Bar> {
 ```
 
 To get dependencies, create component interface. Dagger will generate the implementation of the component.
-```Java
+```Kotlin
 @Component
 interface MyComponent {
 
-    Bar bar();
+    fun bar(): Bar
 }
+```
 
+```Java
 @Generated
 final class DaggerMyComponent implements MyComponent {
 
@@ -64,6 +67,21 @@ final class DaggerMyComponent implements MyComponent {
 
     @Override public Bar bar() {
         return barProvider.get();
+    }
+}
+```
+
+Then call from entry point
+```Kotlin
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val myComponent: MyComponent = DaggerMyComponent.create()
+        val bar = myComponent.bar()
+        bar.print()
+
     }
 }
 ```
