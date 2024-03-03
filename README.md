@@ -1,13 +1,13 @@
 # Dagger 2 Tutorial
 
-Provider
+Dagger Provider
 ```Java
 public interface Provider<T> {
     T get();
 }
 ```
 
-Example
+Add @Inject annotation to constructor
 ```Java
 final class Foo {
     @Inject Foo() {};
@@ -16,7 +16,10 @@ final class Foo {
 final class Bar {
     @Inject Bar(Foo foo) {};
 }
+```
 
+Dagger will generate factories for those annotated classes
+```Java
 @Generated
 public final class Foo_Factory implements Provider<Foo> {
 
