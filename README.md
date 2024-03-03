@@ -62,7 +62,7 @@ final class DaggerMyComponent implements MyComponent {
 
     DaggerMyComponent() {
         this.fooProvider = new Foo_Factory();
-        this.barProvider = new Bar_Factory();
+        this.barProvider = new Bar_Factory(fooProvider);
     }
 
     @Override public Bar bar() {
