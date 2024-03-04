@@ -1,4 +1,4 @@
-package id.afdon.dagger2tutorial.dagger.module
+package id.afdon.dagger2tutorial.model
 
 import android.util.Log
 import javax.inject.Inject
@@ -12,8 +12,8 @@ class NamedObject @Inject constructor(
     fun print() {
         Log.d(
             "NamedObject", "print: NamedObject, " +
-                    "value1: ${namedObjectDependency1.value}, " +
-                    "value2: ${namedObjectDependency2.value}"
+                    "dependency 1 value: ${namedObjectDependency1.value}, " +
+                    "dependency 2 value: ${namedObjectDependency2.value}"
         )
     }
 }
