@@ -12,7 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import id.afdon.dagger2tutorial.dagger.component.DaggerActivityComponent
 import id.afdon.dagger2tutorial.dagger.component.DaggerFooBarComponent
+import id.afdon.dagger2tutorial.dagger.component.DaggerNamedObjectComponent
+import id.afdon.dagger2tutorial.dagger.component.DaggerRunTimeComponent
 import id.afdon.dagger2tutorial.dagger.component.DaggerThirdPartyComponent
+import id.afdon.dagger2tutorial.dagger.module.NamedObjectDependency
+import id.afdon.dagger2tutorial.model.RunTimeDependency
+import id.afdon.dagger2tutorial.model.RunTimeObject
 import id.afdon.dagger2tutorial.ui.theme.Dagger2TutorialTheme
 
 class MainActivity : ComponentActivity() {
@@ -43,6 +48,20 @@ class MainActivity : ComponentActivity() {
         val activityScopedObject2 = activityComponent.getActivityScopedObject()
         activityScopedObject1.print()
         activityScopedObject2.print()
+
+        val runTimeComponent = DaggerRunTimeComponent.builder()
+            .setRunTimeDependency(RunTimeDependency())
+            .build()
+        val runTimeObject = runTimeComponent.getRunTimeObject()
+        runTimeObject.print()
+
+        val namedObjectComponent = DaggerNamedObjectComponent.builder()
+            .setNamedObjectDependency1(NamedObjectDependency(100))
+            .setNamedObjectDependency2(NamedObjectDependency(200))
+            .build()
+        val namedObject = namedObjectComponent.namedObject()
+        namedObject.print()
+
 
         setContent {
             Dagger2TutorialTheme {
