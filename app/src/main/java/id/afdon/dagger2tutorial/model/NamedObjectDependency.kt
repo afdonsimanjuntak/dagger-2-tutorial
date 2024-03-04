@@ -1,3 +1,3 @@
-package id.afdon.dagger2tutorial.dagger.module
+package id.afdon.dagger2tutorial.model
 
 class NamedObjectDependency constructor(val value: Int)

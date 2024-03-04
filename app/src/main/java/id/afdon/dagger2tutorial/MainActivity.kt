@@ -15,12 +15,15 @@ import id.afdon.dagger2tutorial.dagger.component.DaggerFooBarComponent
 import id.afdon.dagger2tutorial.dagger.component.DaggerNamedObjectComponent
 import id.afdon.dagger2tutorial.dagger.component.DaggerRunTimeComponent
 import id.afdon.dagger2tutorial.dagger.component.DaggerThirdPartyComponent
-import id.afdon.dagger2tutorial.dagger.module.NamedObjectDependency
+import id.afdon.dagger2tutorial.dagger.component.DaggerVariableInjectionComponent
+import id.afdon.dagger2tutorial.model.NamedObjectDependency
 import id.afdon.dagger2tutorial.model.RunTimeDependency
-import id.afdon.dagger2tutorial.model.RunTimeObject
+import id.afdon.dagger2tutorial.model.VariableInject
 import id.afdon.dagger2tutorial.ui.theme.Dagger2TutorialTheme
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var variableInject: VariableInject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,10 @@ class MainActivity : ComponentActivity() {
         val bar = fooBarComponent.getBar()
         foo.print()
         bar.print()
+
+        val variableInjectComponent = DaggerVariableInjectionComponent.create()
+        variableInjectComponent.inject(this)
+        variableInject.print()
 
         val thirdPartyComponent = DaggerThirdPartyComponent.create()
         val thirdPartyClass = thirdPartyComponent.getThirdPartyClass()
@@ -50,18 +57,24 @@ class MainActivity : ComponentActivity() {
         activityScopedObject2.print()
 
         val runTimeComponent = DaggerRunTimeComponent.builder()
-            .setRunTimeDependency(RunTimeDependency())
+            .setRunTimeDependency(RunTimeDependency(1000))
             .build()
         val runTimeObject = runTimeComponent.getRunTimeObject()
         runTimeObject.print()
 
-        val namedObjectComponent = DaggerNamedObjectComponent.builder()
+        var namedObjectComponent = DaggerNamedObjectComponent.builder()
             .setNamedObjectDependency1(NamedObjectDependency(100))
             .setNamedObjectDependency2(NamedObjectDependency(200))
             .build()
         val namedObject = namedObjectComponent.namedObject()
         namedObject.print()
 
+        namedObjectComponent = DaggerNamedObjectComponent.builder()
+            .setNamedObjectDependency1(NamedObjectDependency(111))
+            .setNamedObjectDependency2(NamedObjectDependency(222))
+            .build()
+        val namedObject2 = namedObjectComponent.namedObject2()
+        namedObject2.print()
 
         setContent {
             Dagger2TutorialTheme {

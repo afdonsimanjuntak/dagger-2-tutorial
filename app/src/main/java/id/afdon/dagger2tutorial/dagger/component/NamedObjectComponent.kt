@@ -2,14 +2,18 @@ package id.afdon.dagger2tutorial.dagger.component
 
 import dagger.BindsInstance
 import dagger.Component
-import id.afdon.dagger2tutorial.dagger.module.NamedObject
-import id.afdon.dagger2tutorial.dagger.module.NamedObjectDependency
+import id.afdon.dagger2tutorial.dagger.module.NamedObjectModule
+import id.afdon.dagger2tutorial.model.NamedObject
+import id.afdon.dagger2tutorial.model.NamedObject2
+import id.afdon.dagger2tutorial.model.NamedObjectDependency
 import javax.inject.Named
 
-@Component
+@Component(modules = [NamedObjectModule::class])
 interface NamedObjectComponent {
 
     fun namedObject() : NamedObject
+
+    fun namedObject2() : NamedObject2
 
     @Component.Builder
     interface Builder {
